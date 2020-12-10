@@ -4,7 +4,6 @@ import numpy as np
 import pandas as pd
 import random
 from scipy.optimize import minimize
-from tqdm import tqdm #added
 
 
 class LPPLS(object):
