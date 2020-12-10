@@ -220,7 +220,7 @@ class LPPLS(object):
             increment,  # increment
             max_searches,  # max_searches
             filter_conditions_config,
-        ) for i in tdqm(range(obs_copy_len))]
+        ) for i in tqdm(range(obs_copy_len))]
 
         pool = multiprocessing.Pool(processes=workers)
 
