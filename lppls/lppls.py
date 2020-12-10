@@ -220,7 +220,7 @@ class LPPLS(object):
             increment,  # increment
             max_searches,  # max_searches
             filter_conditions_config,
-        ) for i in tqdm(range(obs_copy_len))]
+        ) for i in range(obs_copy_len)]
 
         pool = multiprocessing.Pool(processes=workers)
 
@@ -239,7 +239,7 @@ class LPPLS(object):
         res = []
 
         # run n fits on the observation slice.
-        for j in range(n_fits):
+        for j in tqdm(range(n_fits)):
             obs_shrinking_slice = obs[:, j * increment:window_size + n_iter]
 
             # fit the model to the data and get back the params
