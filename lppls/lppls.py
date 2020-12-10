@@ -203,7 +203,33 @@ class LPPLS(object):
 
         ax1_0.legend(loc=2)
         ax2_0.legend(loc=2)
-
+        
+        
+    def confidence_indicators(self, res, condition_name):
+        """
+        Args:
+            res (list): result from mp_compute_indicator
+            condition_name (str): the name you assigned to the filter condition in your config
+            
+        Returns:
+            two pandas series
+        """
+        price = self.observations[1, :]
+        n = len(price) - len(res)
+        pos_conf_lst = [0] * n
+        neg_conf_lst = [0] * n
+        for r in res:
+            pos_true_count = 0
+            neg_true_count = 0
+            for fits in r:
+                if fits['qualified'][condition_name] and fits['sign'] > 0:
+                    pos_true_count = pos_true_count + 1
+                if fits['qualified'][condition_name] and fits['sign'] < 0:
+                    neg_true_count = neg_true_count + 1
+            pos_conf_lst.append(pos_true_count / len(r))
+            neg_conf_lst.append(neg_true_count / len(r))
+        return pd.Series(pos_conf_lst),pd.Series(neg_conf_lst)
+    
     def mp_compute_indicator(self, workers, window_size=80, smallest_window_size=20, increment=5, max_searches=25,
                              filter_conditions_config=[]):
         obs_copy = self.observations
@@ -224,8 +250,7 @@ class LPPLS(object):
         pool = multiprocessing.Pool(processes=workers)
 
         result = pool.map(func, func_arg_map)
-        #for _ in tqdm.tqdm(pool.imap_unordered(myfunc, range(100), total=100):
-        #    pass
+        
         pool.close()
 
         self.indicator_result = result
