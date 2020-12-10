@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 import random
 from scipy.optimize import minimize
+from tqdm import tqdm #added
 
 
 class LPPLS(object):
@@ -219,7 +220,7 @@ class LPPLS(object):
             increment,  # increment
             max_searches,  # max_searches
             filter_conditions_config,
-        ) for i in range(obs_copy_len)]
+        ) for i in tdqm(range(obs_copy_len))]
 
         pool = multiprocessing.Pool(processes=workers)
 
