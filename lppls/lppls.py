@@ -228,7 +228,7 @@ class LPPLS(object):
                     neg_true_count = neg_true_count + 1
             pos_conf_lst.append(pos_true_count / len(r))
             neg_conf_lst.append(neg_true_count / len(r))
-        return pd.Series(pos_conf_lst),pd.Series(neg_conf_lst)
+        return pd.Series(pos_conf_lst,name='POSITIVE'),pd.Series(neg_conf_lst,name='NEGATIVE')
     
     def mp_compute_indicator(self, workers, window_size=80, smallest_window_size=20, increment=5, max_searches=25,
                              filter_conditions_config=[]):
