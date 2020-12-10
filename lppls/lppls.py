@@ -75,7 +75,7 @@ class LPPLS(object):
         search_count = 0
         # find bubble
         while search_count < max_searches:
-            tc_init_min, tc_init_max = self._get_tc_bounds(observations, 0.20, 0.20)
+            tc_init_min, tc_init_max = self._get_tc_bounds(observations, 0.00, 0.20)
 
             # @TODO make configurable
             # set random initialization limits for non-linear params
