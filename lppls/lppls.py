@@ -225,11 +225,13 @@ class LPPLS(object):
         pool = multiprocessing.Pool(processes=workers)
 
         result = pool.map(func, func_arg_map)
+        #for _ in tqdm.tqdm(pool.imap_unordered(myfunc, range(100), total=100):
+        #    pass
         pool.close()
 
         self.indicator_result = result
         return result
-
+   
     def _func_compute_indicator(self, args):
 
         obs, n_iter, window_size, smallest_window_size, increment, max_searches, filter_conditions_config = args
@@ -239,7 +241,7 @@ class LPPLS(object):
         res = []
 
         # run n fits on the observation slice.
-        for j in tqdm(range(n_fits)):
+        for j in range(n_fits):
             obs_shrinking_slice = obs[:, j * increment:window_size + n_iter]
 
             # fit the model to the data and get back the params
